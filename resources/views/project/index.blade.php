@@ -34,7 +34,8 @@
                                             </ul>
                                         </div>
                                         <div class="index-list__buttons">
-                                            <a href="#" class="btn btn-success m-2">EDIT</a>
+                                            <a href="{{ route('project_edit', $project) }}"
+                                                class="btn btn-success m-2">EDIT</a>
                                             <form method="post" action="{{ route('project_delete', $project->id) }}">
                                                 @method('delete')
                                                 @csrf

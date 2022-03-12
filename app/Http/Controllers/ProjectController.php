@@ -89,7 +89,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('project.edit', [
+            'project' => $project
+        ]);
     }
 
     /**
@@ -99,9 +101,33 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(Request $request, Project $project)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'project_name' => 'required|max:255|min:2|',
+                'group_number' => 'required|integer|max:10|min:2',
+                'student_number' => 'required|integer|max:10|min:2'
+            ]
+        );
+
+        $request->flash();
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator);
+        }
+
+        $project->project_name = $request->project_name;
+        $project->group_number = $request->group_number;
+        $project->student_number = $request->student_number;
+        $project->save();
+
+        return redirect()
+            ->route('project_index')
+            ->with('success_message', 'The project was successfully updated.');
     }
 
     /**
