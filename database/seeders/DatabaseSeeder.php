@@ -25,12 +25,11 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456'),
         ]);
 
-        foreach (range(1, 30) as $_) {
-            $name = $faker->firstName;
-            $surname = $faker->lastName;
+        foreach (range(1, 10) as $_) {
+            $fullName = $faker->firstName . ' ' . $faker->lastName;
             DB::table('students')->insert([
-                'name' => $name,
-                'surname' => $surname
+                'full_name' => $fullName,
+
 
             ]);
         }

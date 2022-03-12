@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use App\Http\Requests\StoreStudentRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -34,9 +35,30 @@ class StudentController extends Controller
      * @param  \App\Http\Requests\StoreStudentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStudentRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'full_name' => 'required|max:255|min:2|unique:students'
+            ]
+        );
+
+        $request->flash();
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator);
+        }
+
+        $student = new Student;
+        $student->full_name = $request->full_name;
+        $student->save();
+
+        return redirect()
+            ->back()
+            ->with('success_message', 'New student was successfully added.');
     }
 
     /**
@@ -81,6 +103,10 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+        return redirect()
+            ->back()
+            ->with('success_message', 'The student was deleted.');
     }
 }

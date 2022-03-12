@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Student;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -78,7 +79,11 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $students = Student::all();
+        return view('project.show', [
+            'project' => $project,
+            'students' => $students
+        ]);
     }
 
     /**

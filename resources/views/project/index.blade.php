@@ -42,7 +42,8 @@
                                                 <button type="submit"
                                                     class="delete--button btn btn-danger m-2">Delete</button>
                                             </form>
-                                            <a href="#" class="btn btn-info m-2">Assign
+                                            <a href="{{ route('project_show', $project) }}"
+                                                class="btn btn-info m-2">Assign
                                                 students</a>
                                         </div>
                                     </div>

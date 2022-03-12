@@ -15,7 +15,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <h1>Edit project: {{ $project->project_name }}</h1>
+                        <h1>Edit project: {{ $project->project_name }} </h1>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('project_update', $project) }}" method="post"
