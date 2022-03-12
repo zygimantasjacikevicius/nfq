@@ -27,3 +27,4 @@ Route::get('/projects', [ProjectController::class, 'index'])->name('project_inde
 
 Route::get('/projects/create', [ProjectController::class, 'create'])->name('project_create');
 Route::post('/projects/store', [ProjectController::class, 'store'])->name('project_store');
+Route::delete('/projects/delete/{project}', [ProjectController::class, 'destroy'])->name('project_delete');

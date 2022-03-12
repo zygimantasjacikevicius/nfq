@@ -35,8 +35,12 @@
                                         </div>
                                         <div class="index-list__buttons">
                                             <a href="#" class="btn btn-success m-2">EDIT</a>
-                                            <button type="submit" class="delete--button btn btn-danger m-2"
-                                                data-action="#">DELETE</button>
+                                            <form method="post" action="{{ route('project_delete', $project->id) }}">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit"
+                                                    class="delete--button btn btn-danger m-2">Delete</button>
+                                            </form>
                                             <a href="#" class="btn btn-info m-2">Assign
                                                 students</a>
                                         </div>
