@@ -12,13 +12,12 @@ The App is build using Laravel framework.
 ### Installing
 
 * git clone git@github.com:zygimantasjacikevicius/nfq.git
+* turn on your server, I'm using XAMPP
 * Create a database named nfq
-* in your .env file change the 
+* Rename the .env.example file to .env file.
+* run command: php artisan migrate:fresh this should create the necessary database tables.
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+* In your browser go to: http://localhost/nfq/public/projects this will open the main app window. From here you can create projects, assign students, etc.
+
