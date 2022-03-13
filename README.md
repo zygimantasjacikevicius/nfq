@@ -8,28 +8,12 @@ A user is able to create new projects, add the amount of groups each project wil
 
 The App is build using Laravel framework.
 
-## Getting Started
-
-### Dependencies
-
-* version list that I used:
-* @popperjs/core": "^2.10.2"
-* "axios": "^0.25"
-* "bootstrap": "^5.1.3"
-* "laravel-mix": "^6.0.6"
-* "lodash": "^4.17.19"
-* "postcss": "^8.1.14"
-* "resolve-url-loader": "^3.1.2"
-* "sass": "^1.32.11"
-* "sass-loader": "^11.0.1"
-* "vue": "^2.6.12"
-* "vue-template-compiler": "^2.6.12"
-* "vue-loader": "^15.9.8"
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* git clone git@github.com:zygimantasjacikevicius/nfq.git
+* Create a database named nfq
+* in your .env file change the 
 
 ### Executing program
 
