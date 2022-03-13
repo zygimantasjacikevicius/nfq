@@ -35,3 +35,4 @@ Route::get('/projects/show/{project}', [ProjectController::class, 'show'])->name
 
 Route::post('/students/store', [StudentController::class, 'store'])->name('student_store');
 Route::delete('/students/delete/{student}', [StudentController::class, 'destroy'])->name('student_delete');
+Route::put('/students/update/{student}', [StudentController::class, 'update'])->name('student_update');

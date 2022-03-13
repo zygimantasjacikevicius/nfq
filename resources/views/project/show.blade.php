@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h1>More about the project: : {{ $project->project_name }}</h1>
+                        <h1>More about the project: {{ $project->project_name }}</h1>
                     </div>
                     <div class="card-body">
                         <div class="row justify-content-center show-content">
@@ -48,7 +48,27 @@
                                 @foreach ($students as $student)
                                     <tr>
                                         <th>{{ $student->full_name }}</th>
-                                        <td> - </td>
+                                        <td>
+
+                                            <form action="{{ route('student_update', $student->id) }}" method="post"
+                                                enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="col-4 form-group">
+                                                        Assign group:<input type="text" class="form-control" name="group"
+                                                            value="{{ $student->group }}">
+                                                    </div>
+
+                                                    <div class="col-12">
+
+                                                        <button type="submit"
+                                                            class="btn btn-success mt-2 mb-3">Assign</button>
+                                                    </div>
+                                                </div>
+                                                @method('PUT')
+                                                @csrf
+                                            </form>
+
+                                        </td>
                                         <td>
                                             <form method="post" action="{{ route('student_delete', $student->id) }}">
                                                 @method('delete')
@@ -72,7 +92,7 @@
 
                                 <div class="col-12">
 
-                                    <button type="submit" class="btn btn-success mt-2">Add student</button>
+                                    <button type="submit" class="btn btn-success mt-2 mb-3">Add student</button>
                                 </div>
                             </div>
                             @csrf
@@ -83,24 +103,22 @@
                                     Group #{{ $i }}
                                 </div>
                                 <div class="card-body">
-                                    @for ($j = 0; $j < $project->student_number; $j++)
-                                        <form action="{{ route('project_show', $project) }}" method="GET">
-                                            <div class="form-group">
-
-                                                <select name="student" class="form-control">
-                                                    <option value="0">Assign Student</option>
-                                                    @foreach ($students as $student)
-                                                        <option value="{{ $student->id }}">
-                                                            {{ $student->name }} {{ $student->surname }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                    <?php $count = 0; ?>
+                                    @foreach ($students as $student)
+                                        @if ($student->group == $i)
+                                            <div>{{ $student->full_name }}
+                                                <?php $count++; ?>
                                             </div>
-                                            <button type="submit" class="btn btn-info m-1">Assign to group</button>
-
-                                        </form>
-                                    @endfor
-
+                                        @endif
+                                    @endforeach
+                                    <?php
+                                    if ($count == $project->student_number) {
+                                        echo '<h3> Group ' . $i . ' is now full.</h3>';
+                                    } elseif ($count > $project->student_number) {
+                                        echo '<h3> Group ' . $i . ' is over capacity. The group can only have ' . $project->student_number . ' students</h3>';
+                                    }
+                                    
+                                    ?>
 
                                 </div>
                             </div>

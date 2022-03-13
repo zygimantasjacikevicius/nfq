@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateStudentRequest;
 use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
@@ -40,7 +40,8 @@ class StudentController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'full_name' => 'required|max:255|min:2|unique:students'
+                'full_name' => 'required|max:255|min:2|unique:students',
+                'group_number' => 'integer|max:10|min:2'
             ]
         );
 
@@ -90,9 +91,16 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStudentRequest $request, Student $student)
+    public function update(Request $request, Student $student)
     {
-        //
+
+
+        $student->group = $request->group;
+        $student->save();
+
+        return redirect()
+            ->back()
+            ->with('success_message', 'Student was assigned to a group.');
     }
 
     /**

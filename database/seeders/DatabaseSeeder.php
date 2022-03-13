@@ -24,14 +24,5 @@ class DatabaseSeeder extends Seeder
             'email' => 'bebras@gmail.com',
             'password' => Hash::make('123456'),
         ]);
-
-        foreach (range(1, 10) as $_) {
-            $fullName = $faker->firstName . ' ' . $faker->lastName;
-            DB::table('students')->insert([
-                'full_name' => $fullName,
-
-
-            ]);
-        }
     }
 }
