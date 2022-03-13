@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('full_name', 64);
             $table->string('group', 2)->default('-');
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('project_id')->references('id')->on('projects');
             $table->timestamps();
         });
     }

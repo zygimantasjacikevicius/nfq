@@ -37,10 +37,12 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make(
             $request->all(),
             [
                 'full_name' => 'required|max:255|min:2|unique:students',
+                'project_id' => 'required|integer|min:1',
                 'group_number' => 'integer|max:10|min:2'
             ]
         );
@@ -55,6 +57,7 @@ class StudentController extends Controller
 
         $student = new Student;
         $student->full_name = $request->full_name;
+        $student->project_id = $request->project_id;
         $student->save();
 
         return redirect()

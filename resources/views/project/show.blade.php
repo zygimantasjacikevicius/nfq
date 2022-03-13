@@ -47,37 +47,39 @@
 
                                 @foreach ($students as $student)
                                     <tr>
-                                        <th>{{ $student->full_name }}</th>
-                                        <td>
+                                        @if ($student->project_id == $project->id)
+                                            <th>{{ $student->full_name }}</th>
+                                            <td>
 
-                                            <form action="{{ route('student_update', $student->id) }}" method="post"
-                                                enctype="multipart/form-data">
-                                                <div class="row">
-                                                    <div class="col-4 form-group">
-                                                        Assign group:<input type="text" class="form-control" name="group"
-                                                            value="{{ $student->group }}">
+                                                <form action="{{ route('student_update', $student->id) }}" method="post"
+                                                    enctype="multipart/form-data">
+                                                    <div class="row">
+                                                        <div class="col-4 form-group">
+                                                            Assign group:<input type="text" class="form-control"
+                                                                name="group" value="{{ $student->group }}">
+                                                        </div>
+
+                                                        <div class="col-12">
+
+                                                            <button type="submit"
+                                                                class="btn btn-success mt-2 mb-3">Assign</button>
+                                                        </div>
                                                     </div>
+                                                    @method('PUT')
+                                                    @csrf
+                                                </form>
 
-                                                    <div class="col-12">
-
-                                                        <button type="submit"
-                                                            class="btn btn-success mt-2 mb-3">Assign</button>
-                                                    </div>
-                                                </div>
-                                                @method('PUT')
-                                                @csrf
-                                            </form>
-
-                                        </td>
-                                        <td>
-                                            <form method="post" action="{{ route('student_delete', $student->id) }}">
-                                                @method('delete')
-                                                @csrf
-                                                <button type="submit">Delete</button>
-                                            </form>
-                                        </td>
+                                            </td>
+                                            <td>
+                                                <form method="post" action="{{ route('student_delete', $student->id) }}">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit">Delete</button>
+                                                </form>
+                                            </td>
 
                                     </tr>
+                                @endif
                                 @endforeach
 
 
@@ -88,6 +90,11 @@
                                 <div class="col-4 form-group">
                                     Student's full name:<input type="text" class="form-control" name="full_name"
                                         value="{{ old('full_name') }}">
+                                </div>
+
+                                <div class="col-4 form-group">
+                                    <input type="hidden" class="form-control" name="project_id"
+                                        value="{{ $project->id }}">
                                 </div>
 
                                 <div class="col-12">
@@ -105,7 +112,7 @@
                                 <div class="card-body">
                                     <?php $count = 0; ?>
                                     @foreach ($students as $student)
-                                        @if ($student->group == $i)
+                                        @if ($student->group == $i && $project->id == $student->project_id)
                                             <div>{{ $student->full_name }}
                                                 <?php $count++; ?>
                                             </div>
